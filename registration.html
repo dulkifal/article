@@ -176,18 +176,6 @@
           >
             Login <ion-icon name="log-in-outline"></ion-icon>
           </button>
-          <style>
-            ion-icon {
-            color: white;
-          }
-
-          .form-box{
-            position: relative;
-            width: 400px;
-            height: 450px;
-            background: #000;
-          }
-          </style>
         </div>
       </div>
       <!-- <v-select :options="options"></v-select> -->
@@ -233,7 +221,7 @@
         this.saving = true;
 
         fetch(
-          `https://script.google.com/macros/s/AKfycbzhTtyzYaPLKyYlAiFfZ3RXk34QDI2-7OaENCzi_ctn8IzOH067RjVPbH0IQ6L5iv6L/exec?_id=${
+          `https://script.google.com/macros/s/AKfycbzdbYD44hiILosaFoM9yvdS3lLWg_inWQQ9o1THDqTwqSfqAIFIohrjwm0het1Wxz0w/exec?_id=${
             this.id
           }&&_pass=${this.pass}&&_update=${JSON.stringify(this.saveList)}`
         )
@@ -249,7 +237,7 @@
       id: function () {
         if (this.id && this.pass) {
           fetch(
-            `https://script.google.com/macros/s/AKfycbzhTtyzYaPLKyYlAiFfZ3RXk34QDI2-7OaENCzi_ctn8IzOH067RjVPbH0IQ6L5iv6L/exec?act=get&&_id=${this.id}&&_pass=${this.pass}`
+            `https://script.google.com/macros/s/AKfycbzdbYD44hiILosaFoM9yvdS3lLWg_inWQQ9o1THDqTwqSfqAIFIohrjwm0het1Wxz0w/exec?act=get&&_id=${this.id}&&_pass=${this.pass}`
           )
             .then((e) => e.json())
             .then((e) => {
