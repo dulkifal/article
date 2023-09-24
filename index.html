@@ -1,49 +1,268 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Article</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Article Registration</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css"
+    />
   </head>
+
   <body>
+    <style>
+      body {
+        margin: 0;
+      }
+      .progs {
+        display: flex;
+        width: 100%;
+        min-height: 100vh;
+        background: rgb(250, 247, 244);
+      }
+      ._input {
+        margin: auto;
+      }
+      ._input button {
+        background: rgb(241, 163, 74);
+        border: none;
+        font-size: 18px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      ._input > div {
+        margin: 5px;
+      }
+      input {
+        padding: 10px 20px;
+        outline: none;
+        border: 1px gainsboro solid;
+        margin: 2px 0;
+      }
+      label {
+        display: block;
+      }
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Article</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Result</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Registration</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Downloads
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Stage schedule</a></li>
-              <li><a class="dropdown-item" href="#">Non stage schedule</a></li>
-              <li><a class="dropdown-item" href="#">Program list</a></li>
-              <li><a class="dropdown-item" href="#">Category wise program list</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">All in one schedule</a></li>
-            </ul>
-          </li>
-      </ul>
+      ._cover {
+        height: 400px;
+        width: 100vw;
+        background-image: url(./cover.jpeg);
+        background-position: center;
+        background-size: 400px;
+      }
+      .top_Bar {
+        width: 100vw;
+        background: white;
+
+        overflow: auto;
+        height: max-content;
+      }
+      .top_Bar > div {
+        width: max-content;
+        display: flex;
+        justify-content: center;
+      }
+      .top_Bar button {
+        background: white;
+        border: none;
+        font-size: 18px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+      .top_Bar button.isActive {
+        border-bottom: solid rgb(241, 163, 74) 3px;
+      }
+      .__progs {
+        padding: 60px 80px;
+      }
+      @media (max-width: 800px) {
+        .__progs {
+          padding: 60px 25px;
+        }
+      }
+      .each {
+        margin: 15px 0;
+      }
+      .save_btn {
+        background: rgb(241, 163, 74);
+        border: none;
+        font-size: 18px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 20px;
+        z-index: 999;
+        position: sticky;
+        top: 80%;
+        left: 50%;
+        transform: translate(50%);
+        width: max-content;
+      }
+      .save_btn:hover {
+        background: rgb(241, 153, 53);
+        transition: 0.5s;
+      }
+      h2 {
+        margin: auto;
+        color: gray;
+      }
+      ._m {
+        min-height: calc(100vh - 400px);
+        display: grid;
+      }
+    </style>
+
+    <div class="progs">
+      <div v-if="id&&pass">
+        <div class="_cover"></div>
+
+        <div class="_m" v-if="prg">
+          <div class="top_Bar">
+            <div>
+              <button
+                v-bind:class="[ activecat==cat&& 'isActive' ]"
+                @click="setAct(cat)"
+                v-for="cat in cats"
+              >
+                {{ cat }}
+              </button>
+            </div>
+          </div>
+
+          <button class="save_btn" @click="save" v-if="saveList">Save</button>
+
+          <div v-if="activecat&&!saving" class="__progs">
+            <div class="each" v-for="eachProg in activecatList">
+              {{eachProg[1]}}
+              <multiselect
+                @input="()=>{onChange(eachProg[0],eachProg[3])}"
+                v-model="eachProg[3]"
+                :multiple="true"
+                :options="activeStdList"
+                track-by="id"
+                label="value"
+                :searchable="true"
+                :close-on-select="false"
+                :show-labels="false"
+                placeholder="Pick a value"
+              ></multiselect>
+            </div>
+          </div>
+          <h2 v-if="saving">Saving...</h2>
+          <h2 v-if="!activecat">Select A catagory</h2>
+        </div>
+      </div>
+      <div class="_input" v-else>
+        <div>
+          <label for="">User Name</label>
+          <input v-model="logInp.id" type="text" />
+        </div>
+        <div>
+          <label for="">Password</label>
+          <input v-model="logInp.pass" type="password" />
+        </div>
+        <div>
+          <button
+            @click="()=>{
+                  this.id=this.logInp.id
+                  this.pass=this.logInp.pass
+              }"
+          >
+            Login
+          </button>
+        </div>
+      </div>
+      <!-- <v-select :options="options"></v-select> -->
     </div>
-  </div>
-</nav>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>
 </html>
+<script>
+  // let _id = "TLM"
+  // let _pass = "bbb"
+  Vue.component("vue-multiselect", window.VueMultiselect.default);
+
+  var app = new Vue({
+    el: ".progs",
+    components: { Multiselect: window.VueMultiselect.default },
+    data: {
+      logInp: {},
+      id: null,
+      pass: null,
+
+      saving: false,
+      cats: ["BIDAYA", "UOOLA", "THANIYA", "THANAWIYYA"],
+      prg: null,
+      std: null,
+      activecat: null,
+      value: null,
+      saveList: null,
+    },
+    methods: {
+      setAct(elm) {
+        this.activecat = elm;
+      },
+      onChange(progkey, std) {
+        //console.log(a,e,"wwwwwwwwwwwwwww");
+        //console.log(JSON.stringify(std.id));
+        this.saveList = {
+          ...this.saveList,
+          ...{ [progkey]: std.map((e) => e.id) },
+        };
+      },
+      save() {
+        this.saving = true;
+
+        fetch(
+          `https://script.google.com/macros/s/AKfycbx3QEb2B19LbzXRKg_4SwyX2zNzgUzRkJ8TC4lPWtXWViFp9nLJwYkGF5I7lUR8KdC_/exec?_id=${
+            this.id
+          }&&_pass=${this.pass}&&_update=${JSON.stringify(this.saveList)}`
+        )
+          .then((e) => e.json())
+          .then((e) => {
+            console.log(e);
+            this.saving = false;
+            this.saveList = null;
+          });
+      },
+    },
+    watch: {
+      id: function () {
+        if (this.id && this.pass) {
+          fetch(
+            `https://script.google.com/macros/s/AKfycbx3QEb2B19LbzXRKg_4SwyX2zNzgUzRkJ8TC4lPWtXWViFp9nLJwYkGF5I7lUR8KdC_/exec?act=get&&_id=${this.id}&&_pass=${this.pass}`
+          )
+            .then((e) => e.json())
+            .then((e) => {
+              if (e.std == "err in ") {
+                alert("Invalid User Or Password");
+                location.reload();
+              } else {
+                this.prg = e.prg;
+                this.std = e.std;
+              }
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+      },
+    },
+    computed: {
+      activecatList() {
+        return this.prg.filter((e) => e[2] == this.activecat);
+      },
+      activeStdList() {
+        return this.std
+          .filter((e) => e[4] == this.activecat)
+          .map((e) => ({ value: `${e[1]} | ${e[2]}`, id: e[1] }));
+      },
+    },
+    mounted() {},
+  });
+</script>
