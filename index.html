@@ -219,7 +219,7 @@
         this.saving = true;
 
         fetch(
-          `https://script.google.com/macros/s/AKfycbzl0eg08XG1aKseWzKG_ebqK2BCOGYiZxD4NR3i1tU1lsNy3vFApM1rUSBLsEDyJta0/exec?_id=${
+          `https://script.google.com/macros/s/AKfycbxB1ODvtqt_4O2w6xDAF9gIcuIX9rN0xhdsojvF20gDTbun4Z7ipPaPwRieKnF5csTp/exec?_id=${
             this.id
           }&&_pass=${this.pass}&&_update=${JSON.stringify(this.saveList)}`
         )
@@ -235,7 +235,7 @@
       id: function () {
         if (this.id && this.pass) {
           fetch(
-            `https://script.google.com/macros/s/AKfycbzl0eg08XG1aKseWzKG_ebqK2BCOGYiZxD4NR3i1tU1lsNy3vFApM1rUSBLsEDyJta0/exec?act=get&&_id=${this.id}&&_pass=${this.pass}`
+            `https://script.google.com/macros/s/AKfycbxB1ODvtqt_4O2w6xDAF9gIcuIX9rN0xhdsojvF20gDTbun4Z7ipPaPwRieKnF5csTp/exec?act=get&&_id=${this.id}&&_pass=${this.pass}`
           )
             .then((e) => e.json())
             .then((e) => {
