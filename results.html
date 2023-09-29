@@ -8,7 +8,7 @@
 	<!-- My CSS -->
 	<link rel="stylesheet" href="style.css">
 
-	<title>Article - Result Dashboard</title>
+	<title>Article - Results</title>
 </head>
 <body>
 
@@ -16,11 +16,11 @@
 	<!-- SIDEBAR -->
 	<section id="sidebar">
 		<a href="#" class="brand">
-			<i class='bx bxs-dashboard' ></i>
+			<i class='bx bxs-doughnut-chart'></i>
 			<span class="text">Article</span>
 		</a>
 		<ul class="side-menu top">
-			<li class="active">
+			<li>
 				<a href="/index.html">
 					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Dashboard</span>
@@ -38,7 +38,7 @@
 					<span class="text">Downloads</span>
 				</a>
 			</li>
-			<li>
+			<li class="active">
 				<a href="/results.html">
 					<i class='bx bxs-doughnut-chart' ></i>
 					<span class="text">Results</span>
@@ -62,14 +62,14 @@
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>Article Dashboard</h1>
+					<h1>Results</h1>
 					<ul class="breadcrumb">
 						<li>
 							<a href="#">Dashboard</a>
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
 						<li>
-							<a class="active" href="#">Home</a>
+							<a class="active" href="#">Results</a>
 						</li>
 					</ul>
 				</div>
@@ -79,41 +79,11 @@
 				</a>
 			</div>
 
-			<ul class="box-info">
-				<li>
-					<span class="text">
-						<h3 style="color: #9400d3;">13</h3>
-						<p style="color: #9400d3;">Equality</p>
-					</span>
-				</li>
-				<li>
-					<span class="text">
-						<h3 style="color: #FF007F;">21</h3>
-						<p style="color: #FF007F;">Liberty</p>
-					</span>
-				</li>
-				<li>
-					<span class="text">
-						<h3 style="color: #004f98;">18</h3>
-						<p style="color: #004f98;">Fraternity</p>
-					</span>
-				</li>
-			</ul>
-
 
 			<div class="table-data">
-				<div class="order">
-					<div class="head">
-						<h3>Total results chart</h3>
-					</div>
-					<div>
-						<canvas id="myChart"></canvas>
-					  </div>
-					  
-				</div>
 				<div class="todo">
 					<div class="head">
-						<h3>Programme schedule <br> 30/09/2023</h3>
+						<h3>Results</h3>
 					</div>
 					<ul class="todo-list">
 						<li>
@@ -149,15 +119,10 @@
 					</ul>
 				</div>
 			</div>
-			<div style="align-items: center; background-color: #fff; margin-top: 15px; border-radius: 15px;">
-					<p style="text-align: center; padding: 20px;">Checkout full results <a href="results.html" style="color: #dd0429;">Click here</a></p>
-			</div>
-			
 		</main>
 		<!-- MAIN -->
 	</section>
 	<!-- CONTENT -->
-	
 	
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="script.js"></script>
@@ -170,8 +135,8 @@
 			labels: ['Equality', 'Liberty', 'Fraternity'],
 			datasets: [{
 			  label: 'Points',
-			  data: [13, 21, 18],
-			  borderWidth: 2
+			  data: [12, 19, 24],
+			  borderWidth: 1
 			}]
 		  },
 		  options: {
