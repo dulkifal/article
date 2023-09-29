@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ARTICLE - CANDIDATES REGISTRATION FORM</title>
+    <title>Article Registration</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
     <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
@@ -135,7 +135,7 @@
             </div>
           </div>
 
-          <button class="save_btn" @click="save" v-if="saveList">Save</button>
+          
 
           <div v-if="activecat&&!saving" class="__progs">
             <div class="each" v-for="eachProg in activecatList">
@@ -160,11 +160,11 @@
       </div>
       <div class="_input" v-else>
         <div>
-          <label for=""> User Name <ion-icon name="person-outline"></ion-icon></label>
+          <label for="">User Name</label>
           <input v-model="logInp.id" type="text" />
         </div>
         <div>
-          <label for="">Password <ion-icon name="lock-closed-outline"></ion-icon></label>
+          <label for="">Password</label>
           <input v-model="logInp.pass" type="password" />
         </div>
         <div>
@@ -174,14 +174,12 @@
                   this.pass=this.logInp.pass
               }"
           >
-            Login <ion-icon name="log-in-outline"></ion-icon>
+            Login
           </button>
         </div>
       </div>
       <!-- <v-select :options="options"></v-select> -->
     </div>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   </body>
 </html>
 <script>
@@ -221,7 +219,7 @@
         this.saving = true;
 
         fetch(
-          `https://script.google.com/macros/s/AKfycbzdbYD44hiILosaFoM9yvdS3lLWg_inWQQ9o1THDqTwqSfqAIFIohrjwm0het1Wxz0w/exec?_id=${
+          `https://script.google.com/macros/s/AKfycbyTVgvpLN3hrJaYs-q2g44pNh6zMyZfMb2qNe71CXqIEpl_fIGXLQdJdh-c44ZlmaAY/exec?_id=${
             this.id
           }&&_pass=${this.pass}&&_update=${JSON.stringify(this.saveList)}`
         )
@@ -237,7 +235,7 @@
       id: function () {
         if (this.id && this.pass) {
           fetch(
-            `https://script.google.com/macros/s/AKfycbzdbYD44hiILosaFoM9yvdS3lLWg_inWQQ9o1THDqTwqSfqAIFIohrjwm0het1Wxz0w/exec?act=get&&_id=${this.id}&&_pass=${this.pass}`
+            `https://script.google.com/macros/s/AKfycbyTVgvpLN3hrJaYs-q2g44pNh6zMyZfMb2qNe71CXqIEpl_fIGXLQdJdh-c44ZlmaAY/exec?act=get&&_id=${this.id}&&_pass=${this.pass}`
           )
             .then((e) => e.json())
             .then((e) => {
